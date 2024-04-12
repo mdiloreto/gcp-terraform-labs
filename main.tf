@@ -1,3 +1,10 @@
+resource "google_project_service" "iam_api" {
+  service = "compute.googleapis.com"
+  disable_on_destroy = false
+  
+}
+
+
 module "vpc_network" {
   source = "./modules/vpc_network"
   subnet_region = var.region
@@ -25,10 +32,36 @@ module "vpc_network" {
 #   depends_on = [module.vpc_network]
 # }
 
-module "linux_vm" {
+module "linux_vm_debian" {
   count = 1
   source = "./modules/linux instance"
-  vm_name = "target-vm-${count.index}"
+  vm_name = "test-vm-bra-${count.index}"
+  project = var.project_id
+  region = var.region
+  zone = var.zone
+  network_name = module.vpc_network.network_name
+  subnet_name = module.vpc_network.subnet_name[0]
+  depends_on = [ module.vpc_network ]
+}
+
+module "linux_vm_centos" {
+  count = 2
+  source = "./modules/linux instance"
+  vm_name = "test-vm-ecu-${count.index}"
+  vm_image = "centos-cloud/centos-7"
+  project = var.project_id
+  region = var.region
+  zone = var.zone
+  network_name = module.vpc_network.network_name
+  subnet_name = module.vpc_network.subnet_name[0]
+  depends_on = [ module.vpc_network ]
+}
+
+module "linux_vm_redhat" {
+  count = 1
+  source = "./modules/linux instance"
+  vm_name = "test-vm-bel-${count.index}"
+  vm_image = "rhel-cloud/rhel-8"
   project = var.project_id
   region = var.region
   zone = var.zone
@@ -49,10 +82,10 @@ module "firewall-rules" {
       ports              = var.fw_ports
       source_ranges      = var.fw_source_rg
       destination_ranges = flatten([
-                              for vm in module.linux_vm : [
-                                  for ip in vm.ipv4-addresses : "${ip}/32"
-                                ]
-                              ]),
+                              for vm in module.linux_vm_centos : [
+                                for ip in vm.ipv4-addresses : "${ip}/32"
+                              ]
+                            ]),
       source_tags        = []                              
     },
     {
@@ -63,7 +96,7 @@ module "firewall-rules" {
       ports              = var.fw_ports2
       source_ranges      = var.fw_source_rg2
       destination_ranges = flatten([
-                            for vm in module.linux_vm : [
+                            for vm in module.linux_vm_centos : [
                                 for ip in vm.ipv4-addresses : "${ip}/32"
                               ]
                             ]),

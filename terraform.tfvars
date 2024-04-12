@@ -1,10 +1,10 @@
-project_id = "cellular-datum-417402" 
+project_id = "multicloudstech-417802" 
 region = "us-east4"
 zone = "us-east4-a"
 state_name = "tfstate001"
 backend_bucket = "mc-tfstate"
-network_name = "default-vpc"
-subnet_name = "default-subnet"
+network_name = "default-vpc2"
+subnet_name = "default-subnet2"
 workerpool_name = "test-private-pool"
 no_external_ip = true
 cb_trigger_name = "bb-cicd-vm-instance-trigger"
