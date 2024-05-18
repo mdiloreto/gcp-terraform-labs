@@ -79,3 +79,41 @@ variable "fw_protocol2" {
   type = string  
   description = "Protocol for the rule"
 }
+
+variable "cluster_name" {}
+variable "location" {}
+variable "release_channel" {}
+variable "machine_type" {}
+variable "disk_type" {}
+variable "disk_size" {
+  default = 50
+}
+variable "num_nodes" {}
+variable "master_ipv4_cidr" {}
+variable "network_id" {}
+variable "subnetwork_id" {}
+variable "cluster_secondary_range_name" {}
+variable "services_secondary_range_name" {}
+variable "default_max_pods_per_node" {}
+variable "node_locations" {}
+variable "enable_private_nodes" {}
+variable "master_global_access_config_enabled" {}
+variable "master_authorized_networks_config_cidr_block" {}
+variable "master_authorized_networks_config_display_name" {}
+variable "cluster_autoscaling_enabled" {}
+variable "upgrade_max_surge" {}
+variable "upgrade_max_unavailable" {}
+variable "auto_upgrade" {}
+variable "auto_repair" {}
+variable "horizontal_pod_autoscaling" {}
+variable "http_load_balancing" {}
+variable "gce_persistent_disk_csi_driver_config_enabled" {}
+variable "enable_shielded_nodes" {}
+variable "workload_vulnerability_scanning" {}
+variable "initial_node_count" {}
+variable "remove_default_node_pool" {}
+variable "vertical_pod_autoscaling_enabled" {}
+variable "node_config_preemptible_enabled" {}
+variable "shielded_instance_config_enable_secure_boot" {}
+variable "shielded_instance_config_enable_integrity_monitoring" {}
+variable "deletion_protection" {}
