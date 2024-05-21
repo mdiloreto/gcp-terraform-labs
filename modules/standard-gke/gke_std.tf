@@ -25,9 +25,6 @@ resource "google_container_cluster" "standard_cluster" {
   remove_default_node_pool = var.remove_default_node_pool
   node_locations           = var.node_locations
 #  min_master_version = var.cluster_version // must be uncommented to specify the min_master_version 
-  enable_autopilot         = false
-
-
   
   deletion_protection      = var.deletion_protection
 
@@ -43,7 +40,7 @@ resource "google_container_cluster" "standard_cluster" {
 
   private_cluster_config {
     enable_private_nodes   = var.enable_private_nodes
-    master_ipv4_cidr_block = var.master_ipv4_cidr
+    #master_ipv4_cidr_block = var.master_ipv4_cidr
     master_global_access_config {
       enabled = var.master_global_access_config_enabled
     }

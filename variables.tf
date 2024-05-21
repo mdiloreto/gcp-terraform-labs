@@ -119,7 +119,7 @@ variable "shielded_instance_config_enable_integrity_monitoring" {}
 variable "deletion_protection" {}
 variable "select_cluster_version" {}
 variable "select_release_channel" {}
-variable "enable_autopilot" {}
+
 # variable "node_pool_name" {}
 
 variable "cluster_network_range_name_cidr" {
@@ -133,3 +133,44 @@ variable "services_secondary_range_name_cidr" {
 variable "pod_secondary_range_name_cidr" {
   description = "Pods secondary range CIDR"
 }
+
+variable "select_cluster_version_std" {}
+variable "select_release_channel_std" {}
+
+variable "project_id_std" {}
+variable "cluster_name_std" {}
+variable "location_std" {}
+variable "release_channel_std" {}
+variable "machine_type_std" {}
+variable "disk_type_std" {}
+variable "disk_size_std" {}
+variable "num_nodes_std" {}
+variable "master_ipv4_cidr_std" {}
+variable "cluster_secondary_range_name_std" {}
+variable "services_secondary_range_name_std" {}
+variable "default_max_pods_per_node_std" {}
+variable "node_locations_std" {}
+variable "enable_private_nodes_std" {}
+variable "master_global_access_config_enabled_std" {}
+variable "master_authorized_networks_config_cidr_block_std" {}
+variable "master_authorized_networks_config_display_name_std" {}
+variable "cluster_autoscaling_enabled_std" {}
+variable "upgrade_max_surge_std" {}
+variable "upgrade_max_unavailable_std" {}
+variable "auto_upgrade_std" {}
+variable "auto_repair_std" {}
+variable "horizontal_pod_autoscaling_std" {}
+variable "http_load_balancing_std" {}
+variable "gce_persistent_disk_csi_driver_config_enabled_std" {}
+variable "enable_shielded_nodes_std" {}
+variable "workload_vulnerability_scanning_std" {}
+variable "initial_node_count_std" {}
+variable "remove_default_node_pool_std" {}
+variable "vertical_pod_autoscaling_enabled_std" {}
+variable "node_config_preemptible_enabled_std" {}
+variable "shielded_instance_config_enable_secure_boot_std" {}
+variable "shielded_instance_config_enable_integrity_monitoring_std" {}
+variable "deletion_protection_std" {}
+variable "cluster_network_range_name_cidr_std" {}
+variable "pod_secondary_range_name_cidr_std" {}
+variable "services_secondary_range_name_cidr_std" {}

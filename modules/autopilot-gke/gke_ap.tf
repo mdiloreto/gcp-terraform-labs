@@ -21,7 +21,7 @@ resource "google_project_iam_member" "cluster_service_account_node_service_accou
 resource "google_container_cluster" "primary" {
   name                     = var.cluster_name
   location                 = var.location
-  enable_autopilot         = var.enable_autopilot
+  enable_autopilot         = true
   
   deletion_protection      = var.deletion_protection
 

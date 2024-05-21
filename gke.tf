@@ -25,8 +25,6 @@ module "gke_primary" {
 
   select_cluster_version = var.select_cluster_version
   select_release_channel = var.select_release_channel
-  enable_autopilot = var.enable_autopilot
-
   project_id                              = var.project_id
   cluster_name                            = var.cluster_name
   location                                = var.location
@@ -68,49 +66,49 @@ module "gke_primary" {
 }
 
 module "standard_gke_primary" {
-    source = "./modules/standard-gke"
+  source = "./modules/standard-gke"
 
-  select_cluster_version = var.select_cluster_version
-  select_release_channel = var.select_release_channel
+  select_cluster_version     = var.select_cluster_version_std
+  select_release_channel     = var.select_release_channel_std
 
-  enable_autopilot                        = false
 
-  project_id                              = var.project_id
-  cluster_name                            = var.cluster_name
-  location                                = var.location
-  release_channel                         = var.release_channel
-  machine_type                            = var.machine_type
-  disk_type                               = var.disk_type
-  disk_size                               = var.disk_size
-  num_nodes                               = var.num_nodes
-  master_ipv4_cidr                        = var.master_ipv4_cidr
-  network_id                              = google_compute_network.hub-network.id
-  subnetwork_id                           = google_compute_subnetwork.hub-subnetwork.id
-  cluster_secondary_range_name            = var.cluster_secondary_range_name
-  services_secondary_range_name           = var.services_secondary_range_name
-  default_max_pods_per_node               = var.default_max_pods_per_node
-  node_locations                          = var.node_locations
-  enable_private_nodes                    = var.enable_private_nodes
-  master_global_access_config_enabled     = var.master_global_access_config_enabled
-  
-  master_authorized_networks_config_cidr_block                             = var.master_authorized_networks_config_cidr_block
-  master_authorized_networks_config_display_name                           = var.master_authorized_networks_config_display_name
 
-  cluster_autoscaling_enabled             = var.cluster_autoscaling_enabled
-  upgrade_max_surge                       = var.upgrade_max_surge
-  upgrade_max_unavailable                 = var.upgrade_max_unavailable
-  auto_upgrade                            = var.auto_upgrade
-  auto_repair                             = var.auto_repair
-  horizontal_pod_autoscaling              = var.horizontal_pod_autoscaling
-  http_load_balancing                     = var.http_load_balancing
-  gce_persistent_disk_csi_driver_config_enabled = var.gce_persistent_disk_csi_driver_config_enabled
-  enable_shielded_nodes                   = var.enable_shielded_nodes
-  workload_vulnerability_scanning         = var.workload_vulnerability_scanning
-  initial_node_count                      = var.initial_node_count
-  remove_default_node_pool                = var.remove_default_node_pool
-  vertical_pod_autoscaling_enabled        = var.vertical_pod_autoscaling_enabled
-  node_config_preemptible_enabled         = var.node_config_preemptible_enabled
-  shielded_instance_config_enable_secure_boot          = var.shielded_instance_config_enable_secure_boot
-  shielded_instance_config_enable_integrity_monitoring = var.shielded_instance_config_enable_integrity_monitoring
-  deletion_protection = var.deletion_protection
+  project_id                  = var.project_id_std
+  cluster_name                = var.cluster_name_std
+  location                    = var.location_std
+  release_channel             = var.release_channel_std
+  machine_type                = var.machine_type_std
+  disk_type                   = var.disk_type_std
+  disk_size                   = var.disk_size_std
+  num_nodes                   = var.num_nodes_std
+  master_ipv4_cidr            = var.master_ipv4_cidr_std
+  network_id                  = google_compute_network.hub-network.id
+  subnetwork_id               = google_compute_subnetwork.hub-subnetwork.id
+  cluster_secondary_range_name = var.cluster_secondary_range_name_std
+  services_secondary_range_name = var.services_secondary_range_name_std
+  default_max_pods_per_node    = var.default_max_pods_per_node_std
+  node_locations              = var.node_locations_std
+  enable_private_nodes         = var.enable_private_nodes_std
+  master_global_access_config_enabled = var.master_global_access_config_enabled_std
+
+  master_authorized_networks_config_cidr_block    = var.master_authorized_networks_config_cidr_block_std
+  master_authorized_networks_config_display_name = var.master_authorized_networks_config_display_name_std
+
+  cluster_autoscaling_enabled  = var.cluster_autoscaling_enabled_std
+  upgrade_max_surge            = var.upgrade_max_surge_std
+  upgrade_max_unavailable      = var.upgrade_max_unavailable_std
+  auto_upgrade                 = var.auto_upgrade_std
+  auto_repair                  = var.auto_repair_std
+  horizontal_pod_autoscaling   = var.horizontal_pod_autoscaling_std
+  http_load_balancing          = var.http_load_balancing_std
+  gce_persistent_disk_csi_driver_config_enabled = var.gce_persistent_disk_csi_driver_config_enabled_std
+  enable_shielded_nodes         = var.enable_shielded_nodes_std
+  workload_vulnerability_scanning = var.workload_vulnerability_scanning_std
+  initial_node_count          = var.initial_node_count_std
+  remove_default_node_pool     = var.remove_default_node_pool_std
+  vertical_pod_autoscaling_enabled = var.vertical_pod_autoscaling_enabled_std
+  node_config_preemptible_enabled = var.node_config_preemptible_enabled_std
+  shielded_instance_config_enable_secure_boot = var.shielded_instance_config_enable_secure_boot_std
+  shielded_instance_config_enable_integrity_monitoring = var.shielded_instance_config_enable_integrity_monitoring_std
+  deletion_protection         = var.deletion_protection_std
 }

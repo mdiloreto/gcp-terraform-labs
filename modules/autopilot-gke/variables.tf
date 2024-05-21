@@ -8,10 +8,6 @@ variable "cluster_name" {
   type        = string
 }
 
-variable "enable_autopilot" {
-  description = "Set to True when an Autopilot cluster is wanted"
-  type = bool
-}
 
 variable "location" {
   description = "The location (region or zone) to deploy the cluster"
