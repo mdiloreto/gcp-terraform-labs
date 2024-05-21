@@ -90,8 +90,8 @@ variable "disk_size" {
 }
 variable "num_nodes" {}
 variable "master_ipv4_cidr" {}
-variable "network_id" {}
-variable "subnetwork_id" {}
+# variable "network_id" {}
+# variable "subnetwork_id" {}
 variable "cluster_secondary_range_name" {}
 variable "services_secondary_range_name" {}
 variable "default_max_pods_per_node" {}
@@ -117,3 +117,19 @@ variable "node_config_preemptible_enabled" {}
 variable "shielded_instance_config_enable_secure_boot" {}
 variable "shielded_instance_config_enable_integrity_monitoring" {}
 variable "deletion_protection" {}
+variable "select_cluster_version" {}
+variable "select_release_channel" {}
+variable "enable_autopilot" {}
+# variable "node_pool_name" {}
+
+variable "cluster_network_range_name_cidr" {
+  description = "CIDR for the Cluster Network"
+}
+
+variable "services_secondary_range_name_cidr" {
+  description = "Services Secondary range CIDR"
+}
+
+variable "pod_secondary_range_name_cidr" {
+  description = "Pods secondary range CIDR"
+}

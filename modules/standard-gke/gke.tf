@@ -2,25 +2,33 @@ data "google_project" "project" {
   project_id = var.project_id
 }
 
-resource "google_service_account" "cluster_service_account" {
+locals {
+  selected_cluster_version = var.select_cluster_version ? var.cluster_version : null
+}
+
+resource "google_service_account" "standard_cluster_service_account" {
   project      = var.project_id
   account_id   = "${substr(replace(replace(replace(var.cluster_name, "-", ""), "_", ""), "[^a-zA-Z0-9]", ""), 0, 25)}gke-sa"
   display_name = "Terraform-managed service account for cluster ${var.cluster_name}"
 }
 
-resource "google_project_iam_member" "cluster_service_account_node_service_account" {
-  project = google_service_account.cluster_service_account.project
+resource "google_project_iam_member" "standard_cluster_service_account_node_service_account" {
+  project = google_service_account.standard_cluster_service_account.project
   role    = "roles/container.defaultNodeServiceAccount"
-  member  = "serviceAccount:${google_service_account.cluster_service_account.email}"
+  member  = "serviceAccount:${google_service_account.standard_cluster_service_account.email}"
 }
 
-resource "google_container_cluster" "primary" {
+resource "google_container_cluster" "standard_cluster" {
   name                     = var.cluster_name
   location                 = var.location
   initial_node_count       = var.initial_node_count
   remove_default_node_pool = var.remove_default_node_pool
   node_locations           = var.node_locations
-  min_master_version       = var.cluster_version
+#  min_master_version = var.cluster_version // must be uncommented to specify the min_master_version 
+  enable_autopilot         = false
+
+
+  
   deletion_protection      = var.deletion_protection
 
     node_config {
@@ -61,8 +69,8 @@ resource "google_container_cluster" "primary" {
     }
   }
 
-  logging_service    = "logging.googleapis.com/kubernetes"
-  monitoring_service = "monitoring.googleapis.com/kubernetes"
+  # logging_service    = "logging.googleapis.com/kubernetes"
+  # monitoring_service = "monitoring.googleapis.com/kubernetes"
 
   enable_shielded_nodes = var.enable_shielded_nodes
 
@@ -70,9 +78,15 @@ resource "google_container_cluster" "primary" {
     mode                            = var.security_posture_mode
   }
 
-#   release_channel {
-#     channel = var.release_channel
-#   }
+  dynamic "release_channel" {
+    for_each = var.select_release_channel ? [1] : [0]
+    content {
+          channel = var.release_channel
+    }
+  }
+  # release_channel {
+  #   channel = var.release_channel
+  # }
 
   cluster_autoscaling {
     enabled             = var.cluster_autoscaling_enabled
@@ -111,10 +125,10 @@ resource "google_container_cluster" "primary" {
 #   }
 }
 
-resource "google_container_node_pool" "primary_node_pool" {
+resource "google_container_node_pool" "standard_primary_node_pool" {
   name     = "${var.cluster_name}-primary-pool"
-  cluster  = google_container_cluster.primary.name
-  location = google_container_cluster.primary.location
+  cluster  = google_container_cluster.standard_cluster.name
+  location = google_container_cluster.standard_cluster.location
   node_count = var.num_nodes
 
   node_config {
@@ -123,7 +137,7 @@ resource "google_container_node_pool" "primary_node_pool" {
     disk_type    = var.disk_type
     disk_size_gb = var.disk_size
 
-    service_account = google_service_account.cluster_service_account.email
+    service_account = google_service_account.standard_cluster_service_account.email
     oauth_scopes    = [
       "https://www.googleapis.com/auth/cloud-platform",
       "https://www.googleapis.com/auth/logging.write",

@@ -8,15 +8,29 @@ variable "cluster_name" {
   type        = string
 }
 
+variable "enable_autopilot" {
+  description = "Set to True when an Autopilot cluster is wanted"
+  type = bool
+}
+
 variable "location" {
   description = "The location (region or zone) to deploy the cluster"
   type        = string
+}
+
+variable "select_cluster_version" {
+  description = "Variable to set up the Cluster release min_master_version parameter"
+  type = bool
 }
 
 variable "cluster_version" {
   description = "The Kubernetes version for the cluster"
   default = "1.28.8-gke.1095000"
   type        = string
+}
+
+variable "select_release_channel" {
+  description = "Bool variable for enabling specifi relase channel version"
 }
 
 variable "release_channel" {
