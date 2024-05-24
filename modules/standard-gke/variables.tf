@@ -8,7 +8,16 @@ variable "cluster_name" {
   type        = string
 }
 
+variable "description" {
+  default = "Google Kubernetes Cluster created though Terraform."
+}
 
+
+variable "cluster_resource_labels" {
+  type        = map(string)
+  description = "The GCE resource labels (a map of key/value pairs) to be applied to the cluster"
+  default     = {}
+}
 
 variable "location" {
   description = "The location (region or zone) to deploy the cluster"
@@ -236,4 +245,8 @@ variable "managed_prometheus_enabled" {
 variable "deletion_protection" {
   description = "If you want to delete de Cluster you'll need to set this value to False"
   type = bool
+}
+
+variable "image_type" {
+  default = "COS_CONTAINERD"
 }

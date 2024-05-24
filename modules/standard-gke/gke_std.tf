@@ -20,12 +20,16 @@ resource "google_project_iam_member" "standard_cluster_service_account_node_serv
 
 resource "google_container_cluster" "standard_cluster" {
   name                     = var.cluster_name
+  # description              = var.description
   location                 = var.location
   initial_node_count       = var.initial_node_count
   remove_default_node_pool = var.remove_default_node_pool
   node_locations           = var.node_locations
+  resource_labels          = var.cluster_resource_labels
+
 #  min_master_version = var.cluster_version // must be uncommented to specify the min_master_version 
-  
+#  min_master_version = var.release_channel == null || var.release_channel == "UNSPECIFIED" ? var.cluster_version : var.kubernetes_version == "latest" ? null : var.kubernetes_version
+
   deletion_protection      = var.deletion_protection
 
     node_config {
@@ -59,7 +63,7 @@ resource "google_container_cluster" "standard_cluster" {
       disabled = var.horizontal_pod_autoscaling
     }
     http_load_balancing {
-      disabled = var.http_load_balancing
+      disabled =! var.http_load_balancing
     }
     gce_persistent_disk_csi_driver_config {
       enabled = var.gce_persistent_disk_csi_driver_config_enabled
@@ -85,14 +89,33 @@ resource "google_container_cluster" "standard_cluster" {
   #   channel = var.release_channel
   # }
 
-  cluster_autoscaling {
-    enabled             = var.cluster_autoscaling_enabled
-    #autoscaling_profile = "OPTIMIZE_UTILIZATION"
-    auto_provisioning_defaults {
-        disk_size = var.disk_size
+    dynamic "cost_management_config" {
+    for_each = var.enable_cost_allocation ? [1] : []
+    content {
+      enabled = var.enable_cost_allocation
     }
   }
 
+  cluster_autoscaling {
+    enabled = var.cluster_autoscaling_enabled
+    dynamic "auto_provisioning_defaults" {
+      for_each = var.cluster_autoscaling_enabled ? [1] : []
+
+      content {
+        service_account = var.standard_cluster_service_account.email
+
+        management {
+          auto_repair  = var.auto_repair
+          auto_upgrade = var.auto_upgrade
+        }
+
+        disk_size = var.disk_size
+        disk_type = var.disk_type
+        image_type = var.image_type
+      }
+    }
+    # autoscaling_profile = var.cluster_autoscaling.autoscaling_profile != null ? var.cluster_autoscaling.autoscaling_profile : "BALANCED"
+  }
 
   vertical_pod_autoscaling {
     enabled = var.vertical_pod_autoscaling_enabled
@@ -159,6 +182,13 @@ resource "google_container_node_pool" "standard_primary_node_pool" {
     max_surge       = var.upgrade_max_surge
     max_unavailable = var.upgrade_max_unavailable
   }
+
+  # auto_provisioning_defaults {
+  #       disk_size = var.disk_size
+  #       disk_type = var.disk_type
+  #       service_account = google_service_account.standard_cluster_service_account.email
+  #       image_type = "COS_CONTAINERD"
+  #   }
 
 #   timeouts {
 #     create = var.timeout_create

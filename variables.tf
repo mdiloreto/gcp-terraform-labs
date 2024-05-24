@@ -34,7 +34,7 @@ variable "service_account" {
 
 variable "fw_source_tags" {
   description = "Source Tag list"
-  type = list(string)
+  type        = list(string)
 }
 
 variable "fw_ports" {
@@ -46,12 +46,12 @@ variable "fw_source_rg" {
 }
 
 variable "fw_rule_name" {
-  type = string
+  type        = string
   description = "Name of the firewall rule"
 }
 
 variable "fw_protocol" {
-  type = string  
+  type        = string
   description = "Protocol for the rule"
 }
 
@@ -59,7 +59,7 @@ variable "fw_protocol" {
 
 variable "fw_source_tags2" {
   description = "Source Tag list"
-  type = list(string)
+  type        = list(string)
 }
 
 variable "fw_ports2" {
@@ -71,12 +71,12 @@ variable "fw_source_rg2" {
 }
 
 variable "fw_rule_name2" {
-  type = string
+  type        = string
   description = "Name of the firewall rule"
 }
 
 variable "fw_protocol2" {
-  type = string  
+  type        = string
   description = "Protocol for the rule"
 }
 
@@ -92,7 +92,7 @@ variable "num_nodes" {}
 variable "master_ipv4_cidr" {}
 # variable "network_id" {}
 # variable "subnetwork_id" {}
-variable "cluster_secondary_range_name" {}
+variable "pod_secondary_range_name" {}
 variable "services_secondary_range_name" {}
 variable "default_max_pods_per_node" {}
 variable "node_locations" {}
@@ -174,3 +174,4 @@ variable "deletion_protection_std" {}
 variable "cluster_network_range_name_cidr_std" {}
 variable "pod_secondary_range_name_cidr_std" {}
 variable "services_secondary_range_name_cidr_std" {}
+variable "subnetwork_name" {}

@@ -32,3 +32,10 @@ output "service_account_email" {
   description = "The email of the service account for the cluster nodes"
   value       = google_service_account.standard_cluster_service_account.email
 }
+
+
+variable "enable_cost_allocation" {
+  type        = bool
+  description = "Enables Cost Allocation Feature and the cluster name and namespace of your GKE workloads appear in the labels field of the billing export to BigQuery"
+  default     = false
+}
