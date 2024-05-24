@@ -7,10 +7,17 @@ subnet_name     = "default-subnet2"
 workerpool_name = "test-private-pool"
 no_external_ip  = true
 cb_trigger_name = "bb-cicd-vm-instance-trigger"
+<<<<<<< HEAD
 cb_repo_name    = "bitbucket_tupperwareglobal_cloud_build-cicd-vm_instance"
 cb_repo_type    = "UNKNOWN"
 cb_filename     = "cloudbuild.yaml"
 wp_disk_size    = "100"
+=======
+cb_repo_name = "bitbucket_tupperwareglobal_cloud_build-cicd-vm_instance"
+cb_repo_type = "UNKNOWN"
+cb_filename = "cloudbuild.yaml"
+wp_disk_size = "30"
+>>>>>>> fac710a80f72d16e69fd694e70c1ef0b9c66e58f
 
 fw_rule_name   = "allow-ingress-to-22-target-vm"
 fw_ports       = ["22"]
@@ -25,6 +32,7 @@ fw_source_tags2 = []
 fw_protocol2    = "tcp"
 
 #GKE AUTOPILOT
+<<<<<<< HEAD
 project_id                                           = "multicloudstech-gke"
 cluster_network_range_name_cidr                      = "10.197.128.0/24"
 services_secondary_range_name_cidr                   = "10.197.144.0/20"
@@ -59,6 +67,42 @@ initial_node_count                                   = 1
 remove_default_node_pool                             = true
 vertical_pod_autoscaling_enabled                     = true
 node_config_preemptible_enabled                      = false
+=======
+project_id                              = "multicloudstech-gke"
+cluster_network_range_name_cidr         = "10.197.128.0/24"
+services_secondary_range_name_cidr      = "10.197.144.0/20"
+pod_secondary_range_name_cidr           = "10.197.136.0/21"
+cluster_name                            = "tf-autopilot-cluster"
+location                                = "us-east4"
+release_channel                         = "REGULAR"
+machine_type                            = "e2-standard-2"
+disk_type                               = "pd-standard"
+disk_size                               = 20
+num_nodes                               = 1
+master_ipv4_cidr                        = "10.197.135.0/28"
+cluster_secondary_range_name            = "tw-vpc-usa-hub-sn-gke-pods"
+services_secondary_range_name           = "tw-vpc-usa-hub-sn-gke-services"
+default_max_pods_per_node               = 110
+node_locations                          = ["us-east4-b","us-east4-c"]
+enable_private_nodes                    = false
+master_global_access_config_enabled     = true
+master_authorized_networks_config_cidr_block  = "0.0.0.0/0"
+master_authorized_networks_config_display_name = "Internet"
+cluster_autoscaling_enabled             = false
+upgrade_max_surge                       = 1
+upgrade_max_unavailable                 = 0
+auto_upgrade                            = true
+auto_repair                             = true
+horizontal_pod_autoscaling              = true
+http_load_balancing                     = true
+gce_persistent_disk_csi_driver_config_enabled = true
+enable_shielded_nodes                   = false
+workload_vulnerability_scanning         = false
+initial_node_count                      = 1
+remove_default_node_pool                = true
+vertical_pod_autoscaling_enabled        = true
+node_config_preemptible_enabled         = false
+>>>>>>> fac710a80f72d16e69fd694e70c1ef0b9c66e58f
 shielded_instance_config_enable_secure_boot          = true
 shielded_instance_config_enable_integrity_monitoring = true
 deletion_protection                                  = false
@@ -75,6 +119,7 @@ pod_secondary_range_name_cidr_std      = "10.197.136.0/21"
 cluster_name_std                       = "tf-interal-apps-cluster"
 location_std                           = "us-east4"
 
+<<<<<<< HEAD
 release_channel_std                                      = "REGULAR"
 machine_type_std                                         = "e2-standard-4"
 disk_type_std                                            = "pd-standard"
@@ -104,6 +149,37 @@ remove_default_node_pool_std                             = true
 vertical_pod_autoscaling_enabled_std                     = true
 node_config_preemptible_enabled_std                      = false
 shielded_instance_config_enable_secure_boot_std          = true
+=======
+release_channel_std             = "REGULAR"
+machine_type_std              = "e2-standard-2"
+disk_type_std                = "pd-standard"
+disk_size_std                = 25
+num_nodes_std                = 1
+master_ipv4_cidr_std            = "10.197.135.0/28"
+cluster_secondary_range_name_std      = "tw-vpc-usa-hub-sn-gke-pods"
+services_secondary_range_name_std      = "tw-vpc-usa-hub-sn-gke-services"
+default_max_pods_per_node_std        = 110
+node_locations_std             = ["us-east4-b","us-east4-c"]
+enable_private_nodes_std          = false
+master_global_access_config_enabled_std   = true
+master_authorized_networks_config_cidr_block_std = "0.0.0.0/0"
+master_authorized_networks_config_display_name_std = "Internet"
+cluster_autoscaling_enabled_std       = false
+upgrade_max_surge_std            = 1
+upgrade_max_unavailable_std         = 0
+auto_upgrade_std              = true
+auto_repair_std               = true
+horizontal_pod_autoscaling_std       = true
+http_load_balancing_std           = true
+gce_persistent_disk_csi_driver_config_enabled_std = true
+enable_shielded_nodes_std          = false
+workload_vulnerability_scanning_std     = false
+initial_node_count_std           = 1
+remove_default_node_pool_std        = true
+vertical_pod_autoscaling_enabled_std    = true
+node_config_preemptible_enabled_std     = false
+shielded_instance_config_enable_secure_boot_std     = true
+>>>>>>> fac710a80f72d16e69fd694e70c1ef0b9c66e58f
 shielded_instance_config_enable_integrity_monitoring_std = true
 deletion_protection_std                                  = false
 select_cluster_version_std                               = false
