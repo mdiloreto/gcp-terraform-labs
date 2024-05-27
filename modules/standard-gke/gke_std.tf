@@ -2,10 +2,6 @@ data "google_project" "project" {
   project_id = var.project_id
 }
 
-locals {
-  selected_cluster_version = var.select_cluster_version ? var.cluster_version : null
-}
-
 resource "google_service_account" "standard_cluster_service_account" {
   project      = var.project_id
   account_id   = "${substr(replace(replace(replace(var.cluster_name, "-", ""), "_", ""), "[^a-zA-Z0-9]", ""), 0, 25)}gke-sa"
@@ -20,7 +16,7 @@ resource "google_project_iam_member" "standard_cluster_service_account_node_serv
 
 resource "google_container_cluster" "standard_cluster" {
   name                     = var.cluster_name
-  # description              = var.description
+  description              = var.description
   location                 = var.location
   initial_node_count       = var.initial_node_count
   remove_default_node_pool = var.remove_default_node_pool
@@ -34,6 +30,7 @@ resource "google_container_cluster" "standard_cluster" {
 
     node_config {
       disk_size_gb = var.disk_size
+      service_account = google_service_account.standard_cluster_service_account.email
     }
 
     monitoring_config {
@@ -44,7 +41,7 @@ resource "google_container_cluster" "standard_cluster" {
 
   private_cluster_config {
     enable_private_nodes   = var.enable_private_nodes
-    #master_ipv4_cidr_block = var.master_ipv4_cidr
+    master_ipv4_cidr_block = var.master_ipv4_cidr
     master_global_access_config {
       enabled = var.master_global_access_config_enabled
     }
@@ -102,7 +99,7 @@ resource "google_container_cluster" "standard_cluster" {
       for_each = var.cluster_autoscaling_enabled ? [1] : []
 
       content {
-        service_account = var.standard_cluster_service_account.email
+        service_account = google_service_account.standard_cluster_service_account.email
 
         management {
           auto_repair  = var.auto_repair
@@ -183,17 +180,5 @@ resource "google_container_node_pool" "standard_primary_node_pool" {
     max_unavailable = var.upgrade_max_unavailable
   }
 
-  # auto_provisioning_defaults {
-  #       disk_size = var.disk_size
-  #       disk_type = var.disk_type
-  #       service_account = google_service_account.standard_cluster_service_account.email
-  #       image_type = "COS_CONTAINERD"
-  #   }
-
-#   timeouts {
-#     create = var.timeout_create
-#     update = var.timeout_update
-#     delete = var.timeout_delete
-#   }
 }
 

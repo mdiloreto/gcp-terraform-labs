@@ -175,3 +175,52 @@ variable "cluster_network_range_name_cidr_std" {}
 variable "pod_secondary_range_name_cidr_std" {}
 variable "services_secondary_range_name_cidr_std" {}
 variable "subnetwork_name" {}
+
+#### TW 
+
+
+
+######### GKE AMR-HUB-PRJ
+variable "description_gke_std_amr" {}
+variable "gke_subnetwork_name_amr" {}
+variable "gke_subnetwork_cidr_amr" {}
+variable "location_std_amr" {}
+variable "services_secondary_range_name_std_amr" {}
+variable "services_secondary_range_cidr_std_amr" {}
+variable "pod_secondary_range_name_std_amr" {}
+variable "pod_secondary_range_cidr_std_amr" {}
+variable "global_ip_address_reservation_name_amr" {}
+variable "global_ip_address_reservation_address_type_amr" {}
+variable "global_ip_address_reservation_description_amr" {}
+variable "select_cluster_version_std_amr" {}
+variable "select_release_channel_std_amr" {}
+variable "cluster_name_std_amr" {}
+variable "release_channel_std_amr" {}
+variable "machine_type_std_amr" {}
+variable "disk_type_std_amr" {}
+variable "disk_size_std_amr" {}
+variable "num_nodes_std_amr" {}
+variable "master_ipv4_cidr_std_amr" {}
+variable "default_max_pods_per_node_std_amr" {}
+variable "node_locations_std_amr" {}
+variable "enable_private_nodes_std_amr" {}
+variable "master_global_access_config_enabled_std_amr" {}
+variable "master_authorized_networks_config_cidr_block_std_amr" {}
+variable "master_authorized_networks_config_display_name_std_amr" {}
+variable "cluster_autoscaling_enabled_std_amr" {}
+variable "upgrade_max_surge_std_amr" {}
+variable "upgrade_max_unavailable_std_amr" {}
+variable "auto_upgrade_std_amr" {}
+variable "auto_repair_std_amr" {}
+variable "horizontal_pod_autoscaling_std_amr" {}
+variable "http_load_balancing_std_amr" {}
+variable "gce_persistent_disk_csi_driver_config_enabled_std_amr" {}
+variable "enable_shielded_nodes_std_amr" {}
+variable "workload_vulnerability_scanning_std_amr" {}
+variable "initial_node_count_std_amr" {}
+variable "remove_default_node_pool_std_amr" {}
+variable "vertical_pod_autoscaling_enabled_std_amr" {}
+variable "node_config_preemptible_enabled_std_amr" {}
+variable "shielded_instance_config_enable_secure_boot_std_amr" {}
+variable "shielded_instance_config_enable_integrity_monitoring_std_amr" {}
+variable "deletion_protection_std_amr" {}

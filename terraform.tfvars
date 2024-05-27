@@ -94,17 +94,69 @@ upgrade_max_surge_std                                    = 1
 upgrade_max_unavailable_std                              = 0
 auto_upgrade_std                                         = true
 auto_repair_std                                          = true
+
 horizontal_pod_autoscaling_std                           = true
+vertical_pod_autoscaling_enabled_std                     = true
+
 http_load_balancing_std                                  = true
 gce_persistent_disk_csi_driver_config_enabled_std        = true
 enable_shielded_nodes_std                                = false
 workload_vulnerability_scanning_std                      = false
 initial_node_count_std                                   = 1
 remove_default_node_pool_std                             = true
-vertical_pod_autoscaling_enabled_std                     = true
 node_config_preemptible_enabled_std                      = false
 shielded_instance_config_enable_secure_boot_std          = true
 shielded_instance_config_enable_integrity_monitoring_std = true
 deletion_protection_std                                  = false
 select_cluster_version_std                               = false
 select_release_channel_std                               = false
+
+
+
+######### GKE Subnet and IP
+
+global_ip_address_reservation_name_amr = "gke-ingress-internal-ip"
+gke_subnetwork_name_amr                = "tw-vpc-usa-hub-sn-gke-nodes"
+gke_subnetwork_cidr_amr                = "10.197.128.0/24"
+global_ip_address_reservation_address_type_amr = "INTERNAL"
+global_ip_address_reservation_description_amr = "Internal Reserved IP Address for GKE Cluster Ingress"
+
+######### GKE AMR-HUB-PRJ
+cluster_name_std_amr            = "tw-gke-interal-apps"
+description_gke_std_amr         = "Google Kubernetes Cluster created for Internal Applications though Terraform."
+
+# Networking
+pod_secondary_range_cidr_std_amr                             = "10.197.144.0/20"
+services_secondary_range_name_std_amr                        = "tw-vpc-usa-hub-sn-gke-services"
+services_secondary_range_cidr_std_amr                        = "10.197.136.0/21"
+pod_secondary_range_name_std_amr                             = "tw-vpc-usa-hub-sn-gke-pods"
+master_ipv4_cidr_std_amr                                     = "10.197.135.0/28"
+
+master_global_access_config_enabled_std_amr                  = true
+master_authorized_networks_config_cidr_block_std_amr         = "10.0.0.0/8"
+master_authorized_networks_config_display_name_std_amr       = "Internal"
+
+location_std_amr                           = "us-east4"
+node_locations_std_amr                     = ["us-east4-b"]
+deletion_protection_std_amr                = true
+enable_private_nodes_std_amr               = true ### <<<<< enable private nodes. 
+initial_node_count_std_amr                 = 1
+remove_default_node_pool_std_amr           = true
+
+release_channel_std_amr                                      = "REGULAR"
+machine_type_std_amr                                         = "e2-standard-4"
+disk_type_std_amr                                            = "pd-standard"
+disk_size_std_amr                                            = 100
+num_nodes_std_amr                                            = 1
+default_max_pods_per_node_std_amr                            = 256
+
+cluster_autoscaling_enabled_std_amr                          = false ### <<<<< Autoscaling Disabled. 
+upgrade_max_surge_std_amr                                    = 1
+upgrade_max_unavailable_std_amr                              = 0
+auto_upgrade_std_amr                                         = true
+auto_repair_std_amr                                          = true
+horizontal_pod_autoscaling_std_amr                           = true
+http_load_balancing_std_amr                                  = true
+gce_persistent_disk_csi_driver_config_enabled_std_amr        = true
+enable_shielded_nodes_std_amr                                = false
+workload_vulnerability_scanning_std_amr                      = false
