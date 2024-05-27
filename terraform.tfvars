@@ -160,3 +160,12 @@ http_load_balancing_std_amr                                  = true
 gce_persistent_disk_csi_driver_config_enabled_std_amr        = true
 enable_shielded_nodes_std_amr                                = false
 workload_vulnerability_scanning_std_amr                      = false
+
+
+vertical_pod_autoscaling_enabled_std_amr                     = true
+node_config_preemptible_enabled_std_amr                      = false
+shielded_instance_config_enable_secure_boot_std_amr          = true
+shielded_instance_config_enable_integrity_monitoring_std_amr = true
+
+select_cluster_version_std_amr                               = false
+select_release_channel_std_amr                               = false
