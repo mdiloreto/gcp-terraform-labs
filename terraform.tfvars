@@ -136,6 +136,21 @@ master_global_access_config_enabled_std_amr                  = true
 master_authorized_networks_config_cidr_block_std_amr         = "10.0.0.0/8"
 master_authorized_networks_config_display_name_std_amr       = "Internal"
 
+master_authorized_networks = [
+  {
+    cidr_blocks = [
+      {
+        cidr_block   = "10.0.0.0/8"
+        display_name = "Internal"
+      },
+      {
+        cidr_block   = "0.0.0.0/0"
+        display_name = "Internet"
+      }
+    ]
+  }
+]
+
 location_std_amr                           = "us-east4"
 node_locations_std_amr                     = ["us-east4-b"]
 deletion_protection_std_amr                = true
@@ -169,3 +184,7 @@ shielded_instance_config_enable_integrity_monitoring_std_amr = true
 
 select_cluster_version_std_amr                               = false
 select_release_channel_std_amr                               = false
+
+#### Artifact Registry
+
+repository_id = "awx-operator"

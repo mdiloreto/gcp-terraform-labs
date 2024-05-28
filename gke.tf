@@ -1,30 +1,30 @@
-resource "google_compute_network" "hub-network" {
-  name                    = "test-hub-network"
-  auto_create_subnetworks = false
-}
+# resource "google_compute_network" "hub-network" {
+#   name                    = "test-hub-network"
+#   auto_create_subnetworks = false
+# }
 
-resource "google_compute_subnetwork" "hub-subnetwork" {
-  name          = var.subnetwork_name
-  ip_cidr_range = var.cluster_network_range_name_cidr
-  region        = var.location
-  network       = google_compute_network.hub-network.id
+# resource "google_compute_subnetwork" "hub-subnetwork" {
+#   name          = var.subnetwork_name
+#   ip_cidr_range = var.cluster_network_range_name_cidr
+#   region        = var.location
+#   network       = google_compute_network.hub-network.id
 
-  secondary_ip_range {
-    range_name    = var.services_secondary_range_name
-    ip_cidr_range = var.services_secondary_range_name_cidr
-  }
+#   secondary_ip_range {
+#     range_name    = var.services_secondary_range_name
+#     ip_cidr_range = var.services_secondary_range_name_cidr
+#   }
 
-  secondary_ip_range {
-    range_name    = var.pod_secondary_range_name
-    ip_cidr_range = var.pod_secondary_range_name_cidr
-  }
-}
+#   secondary_ip_range {
+#     range_name    = var.pod_secondary_range_name
+#     ip_cidr_range = var.pod_secondary_range_name_cidr
+#   }
+# }
 
-resource "google_compute_global_address" "ip_address" {
-  name = "gke-ingress-public-ip"
-  address_type = "EXTERNAL"
-  description = "External IP Address for GKE Cluster Ingress"
-}
+# resource "google_compute_global_address" "ip_address" {
+#   name = "gke-ingress-public-ip"
+#   address_type = "EXTERNAL"
+#   description = "External IP Address for GKE Cluster Ingress"
+# }
 
 # module "gke_primary" {
 #   source = "./modules/autopilot-gke"
@@ -183,9 +183,6 @@ module "standard_gke_primary" {
   enable_private_nodes                = var.enable_private_nodes_std_amr
   master_global_access_config_enabled = var.master_global_access_config_enabled_std_amr
 
-  master_authorized_networks_config_cidr_block   = var.master_authorized_networks_config_cidr_block_std_amr
-  master_authorized_networks_config_display_name = var.master_authorized_networks_config_display_name_std_amr
-
   cluster_autoscaling_enabled                          = var.cluster_autoscaling_enabled_std_amr
   upgrade_max_surge                                    = var.upgrade_max_surge_std_amr
   upgrade_max_unavailable                              = var.upgrade_max_unavailable_std_amr
@@ -203,6 +200,26 @@ module "standard_gke_primary" {
   shielded_instance_config_enable_secure_boot          = var.shielded_instance_config_enable_secure_boot_std_amr
   shielded_instance_config_enable_integrity_monitoring = var.shielded_instance_config_enable_integrity_monitoring_std_amr
   deletion_protection                                  = var.deletion_protection_std_amr
-
+  master_authorized_networks                           = var.master_authorized_networks 
   depends_on = [ google_compute_subnetwork.hub-subnetwork ]
+}
+
+resource "google_artifact_registry_repository" "docker_repo" {
+  provider     = google
+  location     = var.region
+  repository_id = var.repository_id
+  description  = "Docker repository for storing container images"
+  format       = "DOCKER"
+}
+
+
+resource "google_project_iam_member" "standard_cluster_service_account_node_service_account" {
+  project = var.project_id
+  role    = "roles/artifactregistry.reader"
+  member  = "serviceAccount:${module.standard_gke_primary.service_account_email}"
+  # condition {
+  #   title       = "Restrict access to specific repository"
+  #   description = "Allows access only to this specific repository"
+  #   expression  = "resource.name.startsWith('projects/${var.project_id}/locations/${var.region}/repositories/${var.repository_id}')"
+  # }
 }

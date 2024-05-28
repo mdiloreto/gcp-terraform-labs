@@ -40,6 +40,7 @@ resource "google_container_cluster" "standard_cluster" {
     }
 
   private_cluster_config {
+    enable_private_endpoint = false
     enable_private_nodes   = var.enable_private_nodes
     master_ipv4_cidr_block = var.master_ipv4_cidr
     master_global_access_config {
@@ -117,11 +118,16 @@ resource "google_container_cluster" "standard_cluster" {
   vertical_pod_autoscaling {
     enabled = var.vertical_pod_autoscaling_enabled
   }
-
-  master_authorized_networks_config {
-    cidr_blocks {
-      cidr_block   = var.master_authorized_networks_config_cidr_block
-      display_name = var.master_authorized_networks_config_display_name
+  dynamic "master_authorized_networks_config" {
+    for_each = var.master_authorized_networks
+    content {
+      dynamic "cidr_blocks" {
+        for_each = master_authorized_networks_config.value.cidr_blocks
+        content {
+          cidr_block   = lookup(cidr_blocks.value, "cidr_block", "")
+          display_name = lookup(cidr_blocks.value, "display_name", "")
+        }
+      }
     }
   }
 

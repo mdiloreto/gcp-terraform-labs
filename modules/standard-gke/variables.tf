@@ -117,15 +117,23 @@ variable "master_global_access_config_enabled" {
   type        = bool
 }
 
-variable "master_authorized_networks_config_cidr_block" {
-  description = "CIDR block for master authorized networks"
-  type        = string
+variable "master_authorized_networks" {
+  type = list(object({
+    cidr_blocks = list(object({
+      cidr_block   = string
+      display_name = string
+    }))
+  }))
+  description = "List of master authorized networks. If none are provided, disallow external access (except the cluster node IPs, which GKE automatically whitelists)."
+  default     = []
 }
 
-variable "master_authorized_networks_config_display_name" {
-  description = "Display name for master authorized networks"
-  type        = string
-}
+
+
+# variable "master_authorized_networks_config_display_name" {
+#   description = "Display name for master authorized networks"
+#   type        = string
+# }
 
 variable "cluster_autoscaling_enabled" {
   description = "Autoscaling profile for the cluster"

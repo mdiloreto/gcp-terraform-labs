@@ -224,3 +224,6 @@ variable "node_config_preemptible_enabled_std_amr" {}
 variable "shielded_instance_config_enable_secure_boot_std_amr" {}
 variable "shielded_instance_config_enable_integrity_monitoring_std_amr" {}
 variable "deletion_protection_std_amr" {}
+variable "repository_id" {}
+
+variable "master_authorized_networks" {}
