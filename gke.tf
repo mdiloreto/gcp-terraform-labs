@@ -157,7 +157,7 @@ resource "google_compute_address" "ingress_ip_address" {
 resource "google_compute_subnetwork" "proxy_only_subnet" {
   name          = "proxy-only-subnet"
   ip_cidr_range = "10.199.19.0/24"
-  region        = var.region
+  region        = var.region  
   network       = google_compute_network.tw-vpc-amer-hub.id
   purpose       = "REGIONAL_MANAGED_PROXY"
   role          = "ACTIVE"
