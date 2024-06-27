@@ -7,3 +7,6 @@ output "instance_public_ips" {
   description = "The public IP addresses of the VM instances"
 }
 
+output "self_link" {
+  value = [ for instance in google_compute_instance.default : instance.self_link ]
+}

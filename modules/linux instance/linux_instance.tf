@@ -44,6 +44,8 @@ resource "google_compute_instance" "default" {
     interface = var.scratch_disk_interface
   }
 
+  metadata_startup_script = var.startup_script != null ? file(var.startup_script) : ""
+
   network_interface {
     network = var.network_name
     subnetwork = var.subnet_name

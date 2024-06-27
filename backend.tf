@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "gcs" {
-    bucket = "multiclouds12312353"
+    bucket = "multiclouds14240"
     prefix = "terraform/state"
 
   }

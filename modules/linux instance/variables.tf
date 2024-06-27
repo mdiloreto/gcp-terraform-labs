@@ -126,16 +126,10 @@ variable "scratch_disk_interface" {
   default     = "SCSI"
 }
 
-variable "startup_script_create" {
-  description = "Boolean to decide whether to apply startup script"
-  type        = bool
-  default     = false
-}
-
 variable "startup_script" {
   description = "The startup script to be used"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "vm_count" {
