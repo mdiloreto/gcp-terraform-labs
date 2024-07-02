@@ -346,3 +346,26 @@ variable "backend_service_enable_cdn" {
 variable "nginx_startup_script" {
   type = string
 }
+
+variable "cdn_ssl_cert_name" {
+  description = "The name of the SSL certificate."
+  type        = string
+}
+
+variable "cdn_ssl_cert_pri_key_pat" {
+  description = "The path to the private key file."
+  type        = string
+}
+
+variable "cdn_ssl_cert_pem" {
+  description = "The path to the certificate file."
+  type        = string
+}
+
+variable "cdn_ssl_cert_pri_key_pat_v2" {
+  
+}
+
+variable "cdn_ssl_cert_pem_v2" {
+  
+}

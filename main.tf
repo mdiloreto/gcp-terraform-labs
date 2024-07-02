@@ -145,5 +145,17 @@ module "cloud_cdn" {
   backend_service_balancing_mode          = var.backend_service_balancing_mode
   backend_instance_group                  = google_compute_instance_group.example_instance_group.self_link
   backend_service_enable_cdn              = var.backend_service_enable_cdn
+  ssl_certificate                         = google_compute_ssl_certificate.certv2.id
 }
 
+resource "google_compute_ssl_certificate" "default" {
+  name        = var.cdn_ssl_cert_name
+  private_key = file(var.cdn_ssl_cert_pri_key_pat)
+  certificate = file(var.cdn_ssl_cert_pem)
+}
+
+resource "google_compute_ssl_certificate" "certv2" {
+  name        = "${var.cdn_ssl_cert_name}-v2"
+  private_key = file(var.cdn_ssl_cert_pri_key_pat_v2)
+  certificate = file(var.cdn_ssl_cert_pem_v2)
+}

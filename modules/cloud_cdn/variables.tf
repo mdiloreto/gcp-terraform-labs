@@ -102,18 +102,6 @@ variable "backend_service_capacity_scaler" {
 variable "backend_instance_group" {}
 variable "backend_health_check_name" {}
 variable "http_health_check_port_specification" {}
-
-variable "ssl_certificate_name" {
-  description = "The name of the SSL certificate."
-  type        = string
-}
-
-variable "private_key_path" {
-  description = "The path to the private key file."
-  type        = string
-}
-
-variable "cert_path" {
-  description = "The path to the certificate file."
-  type        = string
+variable "ssl_certificate" {
+  description = "id/self_link of the Cert Manager certificate"
 }

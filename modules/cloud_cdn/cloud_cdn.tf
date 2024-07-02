@@ -43,10 +43,11 @@ resource "google_compute_url_map" "default" {
 }
 
 # HTTP proxy
-resource "google_compute_target_http_proxy" "default" {
+resource "google_compute_target_https_proxy" "default" {
   name     = var.http_proxy_name
   provider = google-beta
   url_map  = google_compute_url_map.default.id
+  ssl_certificates = [ var.ssl_certificate ]
   depends_on = [google_compute_url_map.default]
 }
 
@@ -57,13 +58,7 @@ resource "google_compute_global_forwarding_rule" "default" {
   ip_protocol           = var.cpt_gbl_fwd_rul_ip_protocol
   load_balancing_scheme = var.cpt_gbl_fwd_rul_lb_scheme
   port_range            = var.cpt_gbl_fwd_rul_por_ran
-  target                = google_compute_target_http_proxy.default.id
+  target                = google_compute_target_https_proxy.default.id
   ip_address            = google_compute_global_address.default.id
-  depends_on = [google_compute_target_http_proxy.default]
-}
-
-resource "google_compute_ssl_certificate" "default" {
-  name        = var.ssl_certificate_name
-  private_key = file(var.private_key_path)
-  certificate = file(var.cert_path)
+  depends_on = [google_compute_target_https_proxy.default]
 }

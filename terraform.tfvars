@@ -195,7 +195,7 @@ project_id                         = "silent-wharf-427322-a0"
 backend_service_timeout_sec        = 30
 backend_service_custom_response_headers = ["X-Custom-Header: value"]
 cpt_gbl_add_res_pur                = "SHARED_LOADBALANCER_VIP"
-cpt_gbl_fwd_rul_por_ran            = "80-80"
+cpt_gbl_fwd_rul_por_ran            = "443-443"
 cpt_gbl_fwd_rul_lb_scheme          = "EXTERNAL"
 backend_service_name               = "my-backend-service"
 cpt_gbl_fwd_rul_ip_protocol        = "TCP"
@@ -216,3 +216,10 @@ backend_service_balancing_mode     = "UTILIZATION"
 backend_instance_group             = "instancegroup01"
 backend_service_enable_cdn         = true
 nginx_startup_script   = "scripts/nginx.sh"
+
+cdn_ssl_cert_name = "cdn-ssl-cert"
+cdn_ssl_cert_pri_key_pat = "certificates/site.mutliclouds.tech/cert.key"
+cdn_ssl_cert_pem = "certificates/site.mutliclouds.tech/fullchain.pem"
+
+cdn_ssl_cert_pri_key_pat_v2 = "certificates/site.mutliclouds.tech/cert.key"
+cdn_ssl_cert_pem_v2 = "certificates/site.mutliclouds.tech/cert.pem"
